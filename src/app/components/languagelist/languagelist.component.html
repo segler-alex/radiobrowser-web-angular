@@ -1,0 +1,12 @@
+<table class="table table-dark table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Count</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let language of languages" (click)="select(language)" class="clickable">
+      <td>{{language.name}}</td>
+      <td>{{language.stationcount}}</td>
+    </tr>
+  </tbody>
+</table>

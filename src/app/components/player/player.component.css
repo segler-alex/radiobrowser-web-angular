@@ -1,0 +1,18 @@
+.player {
+  position: fixed;
+  height: 0px;
+  bottom: 0;
+  height: 0px;
+  left: 0;
+  right: 0;
+  transition: height 1s;
+  border-top: black 1px solid;
+}
+
+.player-open {
+  height: 50px;
+}
+
+.clickable {
+  cursor: pointer;
+}

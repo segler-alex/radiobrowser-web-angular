@@ -1,0 +1,7 @@
+.word-default{
+  color: red;
+}
+
+.clickable {
+  cursor: pointer;
+}

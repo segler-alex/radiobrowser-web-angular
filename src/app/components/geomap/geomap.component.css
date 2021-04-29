@@ -1,0 +1,22 @@
+.map-container {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  margin: 0px;
+  transition: bottom 1s;
+  z-index: -100;
+}
+
+.map-frame {
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+}
+
+.map-with-player {
+  bottom: 50px;
+}

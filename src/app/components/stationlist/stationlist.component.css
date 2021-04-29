@@ -1,0 +1,11 @@
+.clickable {
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.tagbutton {
+  margin: 2px;
+}

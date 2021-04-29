@@ -1,0 +1,13 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+body {
+  background: rgb(49, 49, 49);
+  color: white;
+}
+
+.dark-modal .modal-content {
+  background-color: #292b2c;
+  color: white;
+}
+.dark-modal .close {
+  color: white;
+}

@@ -1,0 +1,12 @@
+<table class="table table-dark table-striped table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Count</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tag of tags" (click)="select(tag)" class="clickable">
+      <td>{{tag.name}}</td>
+      <td>{{tag.stationcount}}</td>
+    </tr>
+  </tbody>
+</table>

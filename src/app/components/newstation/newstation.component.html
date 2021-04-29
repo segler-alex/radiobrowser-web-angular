@@ -1,0 +1,242 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-dark mb-3">
+        <h3 class="card-header">Add new station</h3>
+        <div class="card-body">
+          <p class="card-text">
+            The information provided here will be released under the public domain.
+            Radio-browser.info only saves links. The content of the streams or the favicons or the homepages of the
+            stations are property of the radio stations themselves.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="sending">
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Sending...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!sending">
+    <div class="col-md-6">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-body">
+          <form #stationForm="ngForm" (ngSubmit)="onSubmit(content)">
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" #name="ngModel" [(ngModel)]="station.name" class="form-control"
+                  required [ngClass]="{'is-invalid': name.invalid }" placeholder="Example: Cool Radio Station"
+                  (ngModelChange)="namechanged($event)" />
+                <div *ngIf="name.valid" class="ok-input">
+                  Looks good!
+                </div>
+                <div *ngIf="name.invalid" class="wrong-input">
+                  You have to name the stream.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="url">Url</label>
+                <input type="text" name="url" id="url" #url="ngModel" [(ngModel)]="station.url" class="form-control"
+                  pattern="(http|https):\/\/.*" required [ngClass]="{'is-invalid': url.invalid }"
+                  placeholder="Example: https://stream.example.com/test.mp3">
+                <div *ngIf="url.invalid" class="wrong-input">
+                  <div *ngIf="url.errors.required">
+                    Url is required.
+                  </div>
+                  <div *ngIf="url.errors.pattern">
+                    Urls have to start with http:// or https://
+                  </div>
+                </div>
+                <div *ngIf="url.valid" class="ok-input">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="homepage">Homepage</label>
+                <input type="text" name="homepage" id="homepage" #homepage="ngModel" [(ngModel)]="station.homepage"
+                  class="form-control" pattern="(http|https):\/\/.*" required
+                  [ngClass]="{'is-invalid': homepage.invalid }" placeholder="Example: https://www.example.com">
+                <div *ngIf="homepage.invalid" class="wrong-input">
+                  <div *ngIf="homepage.errors.required">
+                    Homepage is required.
+                  </div>
+                  <div *ngIf="homepage.errors.pattern">
+                    Urls have to start with http:// or https://
+                  </div>
+                </div>
+                <div *ngIf="homepage.valid" class="ok-input">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="favicon">Favicon</label>
+                <input type="text" name="favicon" id="favicon" #favicon="ngModel" [(ngModel)]="station.favicon"
+                  class="form-control" pattern="(http|https):\/\/.*" [ngClass]="{'is-invalid': favicon.invalid }"
+                  placeholder="Example: https://www.example.com/favicon.png">
+                <div *ngIf="favicon.invalid && (favicon.dirty || favicon.touched)" class="wrong-input">
+                  <div *ngIf="favicon.errors.required">
+                    Favicon is required.
+                  </div>
+                  <div *ngIf="favicon.errors.pattern">
+                    Urls have to start with http:// or https://
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="country">Country</label>
+                <input type="text" name="country" id="country" #country="ngModel" [(ngModel)]="station.country"
+                  class="form-control" [ngClass]="{'is-invalid': country.invalid }" placeholder="Example: germany"
+                  required [ngbTypeahead]="country_search" [inputFormatter]="country_input_formatter"
+                  [resultFormatter]="country_result_formatter" [editable]="false" [autocomplete]="'off'">
+
+                <div *ngIf="country.invalid" class="wrong-input">
+                  <div *ngIf="country.errors.required">
+                    Please provide a country name.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="state">Federated state</label>
+                <input type="text" name="state" id="state" #state="ngModel" [(ngModel)]="station.state"
+                  class="form-control" [ngClass]="{'is-invalid': state.invalid }" placeholder="Example: bavaria"
+                  [ngbTypeahead]="state_search">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="language">Languages</label>
+                <div class="input-group">
+                  <input type="text" name="language" id="language" #language="ngModel" [(ngModel)]="station.language"
+                    class="form-control" [ngClass]="{'is-invalid': language.invalid }" [ngbTypeahead]="language_search"
+                    (selectItem)="add_language($event.item)" [inputFormatter]="delete_input_formatter"
+                    (keyup.enter)="add_language(station.language)" placeholder="Example: english">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="add_language(station.language)"><i
+                        class="bi bi-check text-success"></i></button>
+                  </div>
+                </div>
+                <span>
+                  Please press ENTER or click <i class="bi bi-check text-success"></i> after every single tag to add it!
+                </span>
+                <div>
+                  <button *ngFor="let language of station.language_arr" type="button"
+                    class="btn btn-secondary btn-sm m-1" (click)="remove_language(language)">{{ language }}</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label for="tags">Tags</label>
+                <div class="input-group">
+                  <input type="text" name="tags" id="tags" #tags="ngModel" [(ngModel)]="station.tags"
+                    class="form-control" [ngClass]="{'is-invalid': tags.invalid }" [ngbTypeahead]="tag_search"
+                    (selectItem)="add_tag($event.item)" [inputFormatter]="delete_input_formatter"
+                    (keyup.enter)="add_tag(station.tags)" placeholder="Example: jazz,smooth jazz">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" (click)="add_tag(station.tags)"><i
+                        class="bi bi-check text-success"></i></button>
+                  </div>
+                </div>
+                <span>
+                  Please press ENTER or click <i class="bi bi-check text-success"></i> after every single tag to add it!
+                </span>
+                <div>
+                  <button *ngFor="let tag of station.tags_arr" type="button" class="btn btn-secondary btn-sm m-1"
+                    (click)="remove_tag(tag)">{{ tag
+                    }}</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="StationCountryCode">Lat/Long</label>
+              <p>
+                Exact location of the stream source. This will make it possible for users to find a stream on a map.
+              </p>
+              <p>
+                Please set the pin <b>only if you know</b> where the stream is located. If you were just testing,
+                please
+                click "Clear Lat/Long" before you press "save".
+              </p>
+              <p>
+                <button type="button" class="btn btn-info" (click)="clearmarker()">Clear Lat/Long</button>
+              </p>
+              <div id="mapid_show"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!stationForm.form.valid">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="(stations.length > 0) && !sending">
+      <div class="card text-white bg-dark mb-3">
+        <h2 class="card-header">Similiar stations</h2>
+        <div class="card-body">
+          <p class="card-text">
+            Found similiar stations in the database
+          </p>
+          <ul>
+            <li *ngFor="let foundstation of stations">{{foundstation.name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="(stations.length === 0) && !sending">
+      <div class="card text-white bg-dark mb-3">
+        <h2 class="card-header">Attention!</h2>
+        <div class="card-body">
+          <p class="card-text">
+            Please check the database for existence of the station before you add new stations!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Station submitted</h4>
+    <button type="button" class="close btn-outline-dark" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-white">
+    <div>
+      The stream has been added to the database. It will not be available until the server did an automatic check
+      on it.
+      This may take up to 10 minutes.
+    </div>
+    <hr />
+    <p>
+      If the stream does not get marked as online then the url you provided may be wrong.
+      Please check the stream link with a media play (for example <a href="http://videolan.org/">VLC</a> (FREE)).
+      If the stream works with your mediaplayer, please
+      create a bug report on the subproject that does recognition of streams for radio-browser.
+      <a href="https://github.com/segler-alex/av-stream-info-rust/issues">github</a>.
+      <br /><br /> Thank you!
+    </p>
+    <pre><code class="text-white">
+{{ station_post_json }}
+    </code></pre>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close()">Ok</button>
+  </div>
+</ng-template>
