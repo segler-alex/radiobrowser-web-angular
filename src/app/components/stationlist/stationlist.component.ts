@@ -22,7 +22,7 @@ export class StationlistComponent implements OnInit {
 
   play(event, station: DataStation){
     this.player.play(station);
-    this.rb.count_click(station).subscribe(result => console.log(result));
+    this.rb.count_click(station).toPromise().then(()=>console.log("counted click"));
     event.stopPropagation();
   }
 }

@@ -62,7 +62,7 @@ export class GeomapComponent implements OnInit, AfterViewInit {
         marker.bindPopup("<p>" + station.name + "</p>");
         marker.on("click", () => {
           this.player.play(s);
-          this.rb.count_click(s);
+          this.rb.count_click(s).toPromise().then(()=>console.log("counted click"));
         });
       }
     });
