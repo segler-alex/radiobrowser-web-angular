@@ -45,23 +45,23 @@
         <div class="card-body">
           <p class="card-text">
             <u>I want to listen to radio</u><br />
-            Please have a look at the list of apps that use this service by clicking on "<a ui-sref="users"
-              ng-click="setTab('users')">Apps</a>" in the
+            Please have a look at the list of apps that use this service by clicking
+            on "<a [routerLink]="'/users'">Apps</a>" in the
             header bar. You can also just use the search field on this webpage to find streams you want
-            to listen to. Maybe you want a list of the <a ui-sref="topclick" ng-click="setTab('byclicks')">most clicked
+            to listen to. Maybe you want a list of the <a [routerLink]="'/topclick'">most clicked
               streams</a> of this service?
           </p>
           <p class="card-text">
             <u>I want to add a stream to the database</u><br />
-            Just click "<a ui-sref="add" ng-click="setTab('editstation')">New station</a>" and add the
+            Just click "<a [routerLink]="'/add'">New station</a>" and add the
             stream. This service is completely automatic. More information in the FAQ. Streams CANNOT be
             changed at the moment by users.
           </p>
           <p class="card-text">
             <u>I am the owner of a stream</u><br />
-            You can <a ui-sref="add" ng-click="setTab('editstation')">add your stream</a>. Streams
+            You can <a [routerLink]="'/add'">add your stream</a>. Streams
             can only be changed at the moment by the owner. Please
-            <a ui-sref="owners" ng-click="setTab('owners')">follow the tutorial</a> if you
+            <a [routerLink]="'/owners'">follow the tutorial</a> if you
             want to change your stream.
           </p>
           <p class="card-text">
