@@ -111,6 +111,18 @@ export class RadiobrowserService {
     return this.getStations(options);
   }
 
+  getStationsVerified(): Observable<DataStation[]> {
+    let options = {
+      has_extended_info: true,
+      order: "clickcount",
+      reverse: true,
+      hidebroken: true,
+      offset: 0,
+      limit: 100,
+    };
+    return this.getStations(options);
+  }
+
   getStationsWithGeoInfos(): Observable<DataStation[]> {
     let options = {
       has_geo_info: true,

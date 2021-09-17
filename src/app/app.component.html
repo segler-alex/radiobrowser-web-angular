@@ -22,6 +22,7 @@
       <li ngbDropdown class="nav-item">
         <a href (click)="false" class="nav-link" ngbDropdownToggle>By popularity</a>
         <div ngbDropdownMenu>
+          <button ngbDropdownItem routerLink="/verified" (click)="isMenuCollapsed=true">Verified</button>
           <button ngbDropdownItem routerLink="/topclick" (click)="isMenuCollapsed=true">By clicks</button>
           <button ngbDropdownItem routerLink="/topvote" (click)="isMenuCollapsed=true">By votes</button>
           <button ngbDropdownItem routerLink="/lastclick" (click)="isMenuCollapsed=true">Lately played</button>

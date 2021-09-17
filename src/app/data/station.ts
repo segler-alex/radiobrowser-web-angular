@@ -28,4 +28,5 @@ export interface DataStation {
   url: string;
   url_resolved: string;
   votes: number;
+  has_extended_info: boolean;
 }

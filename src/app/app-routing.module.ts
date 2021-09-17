@@ -16,6 +16,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { CodeclistComponent } from './components/codeclist/codeclist.component';
 import { CountrylistComponent } from './components/countrylist/countrylist.component';
 import { LanguagelistComponent } from './components/languagelist/languagelist.component';
+import { VerifiedComponent } from './components/verified/verified.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'topvote', component: TopvoteComponent },
   { path: 'lastclick', component: LastclickComponent },
   { path: 'lastchange', component: LastchangeComponent },
+  { path: 'verified', component: VerifiedComponent },
   { path: 'tags', component: TaglistComponent },
   { path: 'countries', component: CountrylistComponent },
   { path: 'languages', component: LanguagelistComponent },

@@ -26,6 +26,7 @@ import { CodeclistComponent } from './components/codeclist/codeclist.component';
 import { CountrylistComponent } from './components/countrylist/countrylist.component';
 import { LanguagelistComponent } from './components/languagelist/languagelist.component';
 import { LinklistComponent } from './components/linklist/linklist.component';
+import { VerifiedComponent } from './components/verified/verified.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { LinklistComponent } from './components/linklist/linklist.component';
     CodeclistComponent,
     CountrylistComponent,
     LanguagelistComponent,
-    LinklistComponent
+    LinklistComponent,
+    VerifiedComponent
   ],
   imports: [
     BrowserModule,

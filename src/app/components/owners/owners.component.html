@@ -32,12 +32,13 @@
           already be easily changeable by any audio streaming software.
           <br /><br />
           You can check the information that has been extracted from your stream by searching it on this
-          website and clicking <button class="btn btn-link btn-xs"><span
-              class="glyphicon glyphicon glyphicon-step-backward" aria-label="History"></span></button> It
+          website and clicking it. The detail page
           will show you a list of meta information extracted from your stream in the last 30 days.
           <br /><br />
           From now on every change you make on your stream will automatically be picked up after 24 hours
           by radio-browser.info.
+          <br /><br />
+          Providing this extra information on your stream will earn you the special badge<br/> <a class="btn btn-xs btn-success m-1" data-toggle="tooltip" data-placement="top" title="Stream provider verified stream information (via header)">Verified</a>
         </div>
       </div>
     </div>
@@ -58,6 +59,12 @@
               <code>icy-country-code</code>
             </td>
             <td>override the country code<br />e.g.: AT</td>
+          </tr>
+          <tr>
+            <td>
+              <code>icy-country-subdivison-code</code>
+            </td>
+            <td>override the country subdivision code code (<a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a>)<br />e.g.: AT-1</td>
           </tr>
           <tr>
             <td>
@@ -93,6 +100,7 @@
       &lt;header name=&quot;icy-index-metadata&quot; value=&quot;1&quot; /&gt;
       &lt;header name=&quot;icy-logo&quot; value=&quot;https://example.com/besticon.png&quot; /&gt;
       &lt;header name=&quot;icy-country-code&quot; value=&quot;at&quot; /&gt;
+      &lt;header name=&quot;icy-country-subdivison-code&quot; value=&quot;at-1&quot; /&gt;
       &lt;header name=&quot;icy-main-stream-url&quot; value=&quot;http://example.com:8000/teststream&quot; /&gt;
       &lt;header name=&quot;icy-geo-lat-long&quot; value=&quot;12.345,-23.456&quot; /&gt;
   &lt;/http-headers&gt;

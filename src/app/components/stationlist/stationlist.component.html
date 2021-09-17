@@ -12,6 +12,7 @@
       <td><img [hidden]="!station.favicon" [src]="station.favicon" height="20px" width="20px"
           class="icon" />{{station.name}}</td>
       <td>
+        <a class="btn btn-xs btn-success m-1" [hidden]="!station.has_extended_info" data-toggle="tooltip" data-placement="top" title="Stream provider verified stream information (via header)">Verified</a>
         <a class="btn btn-xs btn-info m-1" [hidden]="!station.codec">{{station.codec}}</a>
         <span class="btn btn-xs btn-info m-1" [hidden]="station.bitrate === 0">{{station.bitrate}} kbps</span>
         <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" class="btn btn-xs btn-info"
