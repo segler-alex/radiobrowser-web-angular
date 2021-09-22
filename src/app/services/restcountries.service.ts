@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import countries from 'world-countries';
 
 export interface Country{
   name: string;
@@ -17,10 +18,32 @@ export class RestcountriesService {
   constructor(private http: HttpClient) { }
 
   getCountryByCode(code: string): Observable<Country> {
-    return this.http.get<Country>('https://restcountries.eu/rest/v2/alpha/' + code);
+    for ( let country of countries ){
+      if (code === country.cca2){
+        return from([{
+          name: country.name.common,
+          alpha2Code: country.cca2,
+          latlng: country.latlng,
+          nativeName: "",
+        }]);
+      }
+    }
+    return from([]);
   }
 
   getCountries(term: string): Observable<Country[]> {
-    return this.http.get<Country[]>('https://restcountries.eu/rest/v2/name/' + term);
+    let list = [];
+    for ( let country of countries ){
+      if (country.name.common.toLowerCase().indexOf(term.toLowerCase()) >= 0){
+        let c: Country = {
+          name: country.name.common,
+          alpha2Code: country.cca2,
+          latlng: country.latlng,
+          nativeName: "",
+        }
+        list.push(c);
+      }
+    }
+    return from([list]);
   }
 }
