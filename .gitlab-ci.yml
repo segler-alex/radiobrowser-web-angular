@@ -1,9 +1,0 @@
-pages:
-    image: node:14
-    script:
-        - npm ci
-        - npx ng build --prod
-        - mv dist/radiobrowser-angular public
-    artifacts:
-        paths:
-            - public
